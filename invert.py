@@ -41,15 +41,15 @@ class Invert:
 
             if len(term) > 0 and not skipTerm:
                 if not lowercaseTerm in self.index:
-                    self.index[lowercaseTerm] = [1, [url, 1]]
+                    self.index[lowercaseTerm] = [1, [[url, 1]]]
                     alreadyUpdated.add(lowercaseTerm)
                 elif not lowercaseTerm in alreadyUpdated:
                     self.index[lowercaseTerm][0] += 1   # increase doc frequency
                     self.index[lowercaseTerm][1].append([url, 1])   #in index but first occurrence in doc
                     alreadyUpdated.add(lowercaseTerm)
                 else:
-                    self.index[lowercaseTerm][1][1] += 1    #in index and nth occurence in doc, increment tf by 1
+                    self.index[lowercaseTerm][1][-1][1] += 1    #in index and nth occurence in doc, increment tf by 1
 
-# invert = Invert('crawler/pages.json')
-# invert.buildIndex()
-# print("done")
+invert = Invert('crawler/pages.json')
+invert.buildIndex()
+print("done")
