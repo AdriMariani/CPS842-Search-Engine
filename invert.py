@@ -50,6 +50,6 @@ class Invert:
                 else:
                     self.index[lowercaseTerm][1][-1][1] += 1    #in index and nth occurence in doc, increment tf by 1
 
-invert = Invert('crawler/pages.json')
-invert.buildIndex()
-print("done")
+# invert = Invert('crawler/pages.json')
+# invert.buildIndex()
+# print("done")
