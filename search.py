@@ -20,8 +20,12 @@ class Search:
         self.stopWords = invert.stopWords
 
     def __getCollection(self):
-         with open(self.documentsPath, 'r') as documentsFile:
-            return json.load(documentsFile)
+        collection = {}
+        with open(self.documentsPath, 'r') as documentsFile:
+            documents = json.load(documentsFile)
+            for doc in documents:
+                collection[doc["url"][0]] = { "title": doc["title"][0], "outLinks": doc["outLinks"] }
+        return collection
 
     def query(self, queryText):
         terms = [term.lower() for term in re.split(self.skipRegex + '+', queryText)]
@@ -80,4 +84,4 @@ class Search:
             scores[doc] = cosineSimilarity
 
         # sort by cosine similarity
-        return {k:v for k, v in sorted(scores.items(), key=lambda item: item[1], reverse=True)}
+        return {k:[v, self.docCollection[k]["title"]] for k, v in sorted(scores.items(), key=lambda item: item[1], reverse=True)}
