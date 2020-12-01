@@ -43,7 +43,7 @@ class Crawler(scrapy.Spider):
         loader = ItemLoader(item=CrawlerItem(), response=response)
 
         loader.add_value('url', response.url)
-        loader.add_value('title', response.css('title::text').get())
+        loader.add_value('title', response.css('title::text').get().strip())
         body = ''.join(response.xpath("body").extract())
         loader.add_value('body', replace_tags(remove_tags_with_content(body, ('script', 'noscript', 'style',)), " ").strip().replace("\n", " ").replace("\r", " ").replace("\t"," "))
 
