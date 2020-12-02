@@ -25,7 +25,7 @@ class Invert:
         with open(self.documentsPath, 'r') as documentsFile:
             documents = json.load(documentsFile)
             for doc in documents:
-                self.__tokenizeAndUpdate(doc["url"][0], doc["body"][0])
+                self.__tokenizeAndUpdate(doc["url"][0], doc["title"][0] + " " + doc["body"][0])
 
     def __tokenizeAndUpdate(self, url, text):
         terms = re.split(self.skipRegex + '+', text)
@@ -52,4 +52,4 @@ class Invert:
 
 # invert = Invert('crawler/pages.json')
 # invert.buildIndex()
-# print("done")
+# print(invert.index)
