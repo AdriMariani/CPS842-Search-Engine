@@ -8,6 +8,7 @@ scrapy = "*"
 nltk = "*"
 flask = "*"
 networkx = "*"
+flask-cors = "*"
 
 [dev-packages]
 
