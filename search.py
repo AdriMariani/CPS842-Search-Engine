@@ -95,4 +95,4 @@ class Search:
             scores[doc] = self.cosineWeight * cosineSimilarity + self.pageRankWeight * self.pageRank[doc]
 
         # sort by cosine similarity
-        return {k:[v, self.docCollection[k]["title"]] for k, v in sorted(scores.items(), key=lambda item: item[1], reverse=True)}
+        return [{"url": k, "score": v, "title": self.docCollection[k]["title"]} for k, v in sorted(scores.items(), key=lambda item: item[1], reverse=True)]
