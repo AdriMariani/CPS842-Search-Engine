@@ -49,7 +49,9 @@ class Search:
             if self.stemming:
                 term = self.ps.stem(term)
 
-            skipTerm = (not term in self.index) or (self.stopWordRemoval and term in self.stopWords)
+            skipTerm = (not term in self.index) or \
+                (self.stopWordRemoval and term in self.stopWords) or \
+                (term in self.index and math.log10(len(self.docCollection) / self.index[term][0]) == 0)
 
             if not skipTerm and term in queryFrequencies:
                 queryFrequencies[term] += 1
