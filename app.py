@@ -9,6 +9,12 @@ search = Search('crawler/pages.json')
 
 @app.route('/query', methods=['POST'])
 def query():
-    resp = Response(json.dumps(search.query(request.get_json()['query'])))
+    body = request.get_json()
+    if "start" in body and "end" in body:
+        start = body['start']
+        end = body['end']
+        resp = Response(json.dumps(search.query(body['query'])[start:end]))
+    else:
+        resp = Response(json.dumps(search.query(body['query'])))
     resp.headers["Content-Type"] = 'application/json'
     return resp
