@@ -3,11 +3,14 @@ import re
 import math
 import json
 import os
+import networkx
 from nltk.stem import PorterStemmer
 
 class Search:
     regex = skipRegex = r'[\|\>\<\=\+\/\,\:\*\-\.\'\";\?\{\}\[\]\(\)\s]'
     ps = PorterStemmer()
+    cosineWeight = 0.75
+    pageRankWeight = 0.25
 
     def __init__(self, documentsPath, stemming = True, stopWordRemoval = True):
         invert = Invert(documentsPath, stemming, stopWordRemoval)
@@ -17,6 +20,7 @@ class Search:
         self.stopWordRemoval = stopWordRemoval
         self.documentsPath = os.path.join(os.path.dirname(__file__), documentsPath)
         self.docCollection = self.__getCollection()
+        self.pageRank = self.__calculatePageRank()
         self.stopWords = invert.stopWords
 
     def __getCollection(self):
@@ -26,6 +30,13 @@ class Search:
             for doc in documents:
                 collection[doc["url"][0]] = { "title": doc["title"][0], "outLinks": doc["outLinks"] }
         return collection
+
+    def __calculatePageRank(self):
+        graph = networkx.DiGraph()
+        for doc in self.docCollection:
+            for link in self.docCollection[doc]["outLinks"]:
+                graph.add_edge(doc, link)
+        return networkx.pagerank(graph)   # default alpha is 0.85
 
     def query(self, queryText):
         terms = [term.lower() for term in re.split(self.skipRegex + '+', queryText)]
@@ -81,7 +92,7 @@ class Search:
             for i in range(0, len(queryVector)):
                 scalarProduct += docVectors[doc][i] * queryVector[i]
             cosineSimilarity = scalarProduct / (queryVectorLength * docVectorLength)
-            scores[doc] = cosineSimilarity
+            scores[doc] = self.cosineWeight * cosineSimilarity + self.pageRankWeight * self.pageRank[doc]
 
         # sort by cosine similarity
         return {k:[v, self.docCollection[k]["title"]] for k, v in sorted(scores.items(), key=lambda item: item[1], reverse=True)}

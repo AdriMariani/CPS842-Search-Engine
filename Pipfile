@@ -7,6 +7,7 @@ name = "pypi"
 scrapy = "*"
 nltk = "*"
 flask = "*"
+networkx = "*"
 
 [dev-packages]
 

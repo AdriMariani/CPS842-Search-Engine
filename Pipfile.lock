@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a802c395540707b67dec8295bb6e6b11f277a851dc30dfeb78232178ec1ce0b6"
+            "sha256": "f183c3359ff9248482a4d6561381025ea3e3b6d4484fef789fcb6f975b0baa91"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -120,6 +120,13 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==1.1.0"
+        },
+        "decorator": {
+            "hashes": [
+                "sha256:41fa54c2a0cc4ba648be4fd43cff00aedf5b9465c9bf18d64325bc225f08f760",
+                "sha256:e3a62f0520172440ca0dcc823749319382e377f37f140a0b99ef45fecb84bfe7"
+            ],
+            "version": "==4.4.2"
         },
         "flask": {
             "hashes": [
@@ -280,6 +287,14 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==1.1.1"
+        },
+        "networkx": {
+            "hashes": [
+                "sha256:7978955423fbc9639c10498878be59caf99b44dc304c2286162fd24b458c1602",
+                "sha256:8c5812e9f798d37c50570d15c4a69d5710a18d77bafc903ee9c5fba7454c616c"
+            ],
+            "index": "pypi",
+            "version": "==2.5"
         },
         "nltk": {
             "hashes": [
