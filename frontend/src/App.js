@@ -4,7 +4,7 @@ import SearchResults from './components/SearchResults'
 import PaginationButton from './components/PaginationButton'
 
 const App = () => {
-  const pageLength = 50
+  const pageLength = 25
 
   const [searchText, setSearchText] = useState('')
   const [queryField, setQueryField] = useState('')
@@ -32,11 +32,11 @@ const App = () => {
 
   const next = async e => {
     e.preventDefault()
-    setPrevResults(searchResults)
-    setResults(nextSearchResults)
     const newStart = start + pageLength
     const newEnd = end + pageLength
     const nextResults = await queryService.query(searchText, newStart + pageLength, newEnd + pageLength)
+    setPrevResults(searchResults)
+    setResults(nextSearchResults)
     setNextResults(nextResults)
     setStart(newStart)
     setEnd(newEnd)
