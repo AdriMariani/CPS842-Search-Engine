@@ -7,7 +7,7 @@ from w3lib.html import replace_tags, remove_tags_with_content
 
 class Crawler(scrapy.Spider):
     name = "Crawler"
-    maxDocs = 100
+    maxDocs = 3000
     start_urls = [
         "https://www.uefa.com/uefachampionsleague/",
         "https://www.skysports.com/football",
@@ -23,11 +23,14 @@ class Crawler(scrapy.Spider):
         "https://www.tribalfootball.com/",
         "https://www.football365.com/",
         "https://www.whoscored.com/",
-        "https://fbref.com/en/",
         "https://footystats.org/",
         "https://www.theguardian.com/football",
         "https://www.bundesliga.com/en/bundesliga",
-        "http://www.legaseriea.it/en"
+        "http://www.legaseriea.it/en",
+        "https://www.worldsoccer.com/",
+        "https://www.football-italia.net/",
+        "https://www.sportingnews.com/ca/soccer",
+        "https://www.cbc.ca/sports/soccer"
     ]
     linkExtractor = LinkExtractor()
 
